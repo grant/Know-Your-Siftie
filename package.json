@@ -1,0 +1,30 @@
+{
+  "name": "know-your-siftie",
+  "version": "1.0.0",
+  "description": "A simple way of getting to know your Sifties.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/grant/know-your-siftie.git"
+  },
+  "keywords": [
+    "know",
+    "your",
+    "siftie",
+    "sift",
+    "science",
+    "introduction",
+    "get",
+    "to",
+    "know"
+  ],
+  "author": "Grant Timmerman",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/grant/know-your-siftie/issues"
+  },
+  "homepage": "https://github.com/grant/know-your-siftie"
+}
