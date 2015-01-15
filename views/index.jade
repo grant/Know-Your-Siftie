@@ -1,5 +1,40 @@
 extends layout
 
+mixin fraction
+  .fraction
+    .current.part 0
+    | /
+    .total.part 0
+
 block content
-  h1= title
-  p Welcome to #{title}
+  .viewport
+    .background
+    ul.pages
+      li.page.intro
+        h1.title
+          | Know
+          wbr
+          |  Your
+          wbr
+          |  Siftie
+        nav.buttons
+          .easy.button
+          .hard.button
+      li.page.game
+        .hud
+          //- .probability
+          .progress
+            +fraction
+        .person
+          img.picture
+          h3.name
+        nav.buttons
+          .next.button
+      li.page.results
+        .score
+          +fraction
+        ul.people
+          li.person
+
+block js
+  script(src='/js/index.js')
