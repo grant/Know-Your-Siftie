@@ -2,6 +2,7 @@ $ = require 'jquery'
 Game = require './game'
 
 debug = true
+fadeDuration = 200
 
 $ ->
   # Global variables
@@ -93,12 +94,12 @@ $ ->
     for pageName of $page
       if pageName is newPageName
         if transition
-          $page[pageName].fadeIn()
+          $page[pageName].fadeIn(fadeDuration)
         else
           $page[pageName].show()
       else
         if transition
-          $page[pageName].fadeOut()
+          $page[pageName].fadeOut(fadeDuration)
         else
           $page[pageName].hide()
 
