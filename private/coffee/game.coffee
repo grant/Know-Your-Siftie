@@ -2,6 +2,8 @@ shuffle = require 'shuffle-array'
 ucfirst = require 'ucfirst'
 sets = require 'simplesets'
 
+delayBetweenQuestions = 500
+
 class Game
   constructor: (data, @$page) ->
     @questionDataOrder = shuffle(data)
@@ -67,21 +69,29 @@ class Game
 
   # Checks if a guess is correct
   checkGuess: ->
-    @updateGuess()
-    if @guessIsCorrect()
-      @correctGuessIndices.push @currentQuestionIndex
-      # Make name flash green
-      @$name.addClass('correct')
-      # Delay next question
-      setTimeout =>
-        @$page.find('.progress .current').text(++@score)
-        @nextQuestion()
-      , 500
-    else # incorrect
-      if @guess.length == @getQuestion().firstName.length
-        @$name.addClass('incorrect')
-      else
-        @$name.removeClass('incorrect')
+    if !@transitioning
+      @updateGuess()
+      if @guessIsCorrect()
+        @correctGuessIndices.push @currentQuestionIndex
+        # Make name flash green
+        @$name.addClass('correct')
+        @transitioning = true
+        # Delay next question
+        setTimeout =>
+          @transitioning = false
+          @$page.find('.progress .current').text(++@score)
+          @nextQuestion()
+        , delayBetweenQuestions
+      else # incorrect
+        firstName = @getQuestion().firstName
+        if @guess.length == firstName.length
+          @$name.addClass('incorrect')
+          @transitioning = true
+          @$name.text(firstName)
+          setTimeout =>
+            @transitioning = false
+            @nextQuestion()
+          , delayBetweenQuestions * 2
 
   # Updates the guess state
   updateGuess: ->
