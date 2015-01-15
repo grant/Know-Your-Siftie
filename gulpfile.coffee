@@ -18,7 +18,7 @@ src =
 
 dest =
   coffee: 'public/js/'
-  stylus: 'public/css/pages/'
+  stylus: 'public/css/'
 
 gulp.task 'build', ['coffee', 'stylus']
 
