@@ -38,6 +38,7 @@ class Game
     @guess = ''
     
     # Update DOM
+    @$page.find('.person .name').removeClass('correct')
     @$page.find('.person .picture').attr('src', questionData.image)
     @$page.find('.person .title').text(questionData.title)
     @updateGuess()
@@ -65,7 +66,15 @@ class Game
     if @guessIsCorrect()
       ++@score
       @$page.find('.progress .current').text(@score)
-      @nextQuestion()
+      # Make name flash green
+      @$page.find('.person .name').addClass('correct')
+      # Delay next question
+      setTimeout =>
+        if @gameIsOver()
+          @gameOverCb()
+        else
+          @nextQuestion()
+      , 500
 
   # Updates the guess state
   updateGuess: ->
@@ -81,5 +90,13 @@ class Game
   guessIsCorrect: ->
     questionData = @getQuestion()
     return (@guess == questionData.firstName.toLowerCase())
+
+  # Game state
+  setGameOverCb: (cb) ->
+    @gameOverCb = cb
+
+  # Returns true if the game is over
+  gameIsOver: ->
+    return @currentQuestionIndex == @questionDataOrder.length
 
 module.exports = Game

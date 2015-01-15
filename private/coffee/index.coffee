@@ -51,6 +51,8 @@ $ ->
     setPage('game')
     game = new Game(data, $page.game)
     game.setDifficulty difficulty
+    game.setGameOverCb ->
+      setPage 'results'
     game.nextQuestion()
 
   # Loads the data for the game
