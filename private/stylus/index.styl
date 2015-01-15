@@ -134,7 +134,46 @@ button(size, color)
           color red
       .title
         margin-top 30px
-      
-        
-  // &.game
-  // &.results
+
+  &.results
+    .score
+      position absolute
+      text-align center
+      width 100%
+      top 30%
+      fraction(200px)
+      color textColor
+    .people-area
+      position absolute
+      width 100%
+      top 80%
+      .people
+        text-align center
+        width 100%
+        .person
+          display inline-block
+          width 200px
+          padding 20px
+          margin 20px
+          border-radius 3px
+          &.correct
+            correctColor = green
+            border 2px solid correctColor
+            color correctColor
+          &.incorrect
+            incorrectColor = red
+            border 2px solid incorrectColor
+            color incorrectColor
+          .picture
+            width 100%
+            border-radius 50%
+          .name
+            text-align center
+            margin-top 20px
+      .buttons
+        margin 20px 0
+        text-align center
+        .button
+          button(100px, blue)
+          .text
+            font-size 24px

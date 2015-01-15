@@ -8,6 +8,7 @@ class Game
     @currentQuestionIndex = 0
     @score = 0
     @guess = ''
+    @correctGuessIndices = []
 
     # Generate valid character
     @validCharacters = new sets.Set()
@@ -69,6 +70,7 @@ class Game
     @updateGuess()
     if @guessIsCorrect()
       ++@score
+      @correctGuessIndices.push @currentQuestionIndex
       @$page.find('.progress .current').text(@score)
       # Make name flash green
       @$name.addClass('correct')
@@ -104,5 +106,22 @@ class Game
   # Returns true if the game is over
   gameIsOver: ->
     return @currentQuestionIndex == @questionDataOrder.length
+
+  # Gets the final results of the game
+  getResults: ->
+    correct = []
+    incorrect = []
+    for i in [0...@questionDataOrder.length]
+      if @correctGuessIndices.indexOf(i) != -1
+        correct.push @questionDataOrder[i]
+      else
+        incorrect.push @questionDataOrder[i]
+
+    results =
+      score: @score
+      total: @questionDataOrder.length
+      correct: correct
+      incorrect: incorrect
+    return results
 
 module.exports = Game

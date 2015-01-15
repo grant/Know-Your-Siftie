@@ -40,8 +40,10 @@ block content
       li.page.results
         .score
           +fraction
-        ul.people
-          li.person
+        .people-area
+          ul.people
+          nav.buttons
+            +button('Again?').again
 
 block js
   script(src='/js/index.js')

@@ -23,6 +23,7 @@ $ ->
     $easyButton = $('.easy.button')
     $hardButton = $('.hard.button')
     $skipButton = $('.skip.button')
+    $againButton = $('.again.button')
 
     # Load the data then enable intro button clicks
     loadData ->
@@ -32,6 +33,8 @@ $ ->
         startGame('hard')
       $skipButton.click ->
         game.nextQuestion()
+      $againButton.click ->
+        setPage 'intro'
 
     # Listen for keyboard events
     $('body').keydown (e) ->
@@ -54,9 +57,25 @@ $ ->
     setPage('game')
     game = new Game(data, $page.game)
     game.setDifficulty difficulty
+    game.nextQuestion()
     game.setGameOverCb ->
       setPage 'results'
-    game.nextQuestion()
+      results = game.getResults()
+      $peopleList = []
+
+      addList = (list, type) ->
+        for incorrectPeople in list
+          $picture = $('<img>').addClass('picture').attr('src', incorrectPeople.image)
+          $name = $('<h3>').addClass('name').text(incorrectPeople.firstName)
+          $person = $('<li>').addClass('person ' + type).append($picture, $name)
+          $('.people').append($person)
+      
+      addList results.incorrect, 'incorrect'
+      addList results.correct, 'correct'
+
+      $page.results.find('.fraction .current').text(results.score)
+      $page.results.find('.fraction .total').text(results.total)
+
 
   # Loads the data for the game
   loadData = (cb) ->
