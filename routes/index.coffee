@@ -3,7 +3,7 @@ request = require 'request'
 cheerio = require 'cheerio'
 router = express.Router()
 
-# GET home page. 
+# GET home page.
 router.get '/', (req, res) ->
   res.render 'index',
     title: 'Express'
@@ -22,7 +22,8 @@ router.get '/api', (req, res) ->
         name: $team.find('h2').text()
         title: $team.find('h3').text()
         description: $team.find('p').text()
-      data.push personData
+      if personData.image
+        data.push personData
 
     res.json data
 
