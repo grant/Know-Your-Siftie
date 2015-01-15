@@ -9,6 +9,10 @@ html, body, .viewport, .pages, .page
   width 100%
   height 100%
 
+blueColor = rgb(39, 169, 225)
+orangeColor = rgb(242, 106, 47)
+redColor = rgb(218, 85, 78)
+greenColor = rgb(162, 211, 105)
 textColor = #333
 
 // A fraction
@@ -82,10 +86,11 @@ button(size, color)
       margin-left 30%
       .button
         size = 100px
-        button(size, blue)
         &.easy
+          button(size, blueColor)
           float left
         &.hard
+          button(size, orangeColor)
           float right
 
   &.game
@@ -110,7 +115,7 @@ button(size, color)
           position absolute
           width 100%
           .button
-            button(size, blue)
+            button(size, orangeColor)
           .skip
             float right
 
@@ -161,11 +166,11 @@ button(size, color)
           margin 20px
           border-radius 3px
           &.correct
-            correctColor = green
+            correctColor = greenColor
             border 2px solid correctColor
             color correctColor
           &.incorrect
-            incorrectColor = red
+            incorrectColor = redColor
             border 2px solid incorrectColor
             color incorrectColor
           .picture
@@ -178,6 +183,6 @@ button(size, color)
         margin 20px 0
         text-align center
         .button
-          button(100px, blue)
+          button(100px, orangeColor)
           .text
             font-size 24px
