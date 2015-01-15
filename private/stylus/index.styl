@@ -8,9 +8,18 @@ html, body, .viewport, .pages, .page
   width 100%
   height 100%
 
+textColor = #333
+
+// A fraction
+fraction(size)
+  font-size size
+  .part
+    padding 0 size * 0.2
+
+// A hexagon button
 button(size, color)
-  colorDifference = 0.2
-  shadowOpacity = 0.2
+  colorDifference = 20%
+  shadowOpacity = 20%
   shadowSize = 10px
   position relative
   width size
@@ -20,8 +29,6 @@ button(size, color)
   transition margin-top 200ms
   &:hover
     margin-top (shadowSize * 0.5)
-    .area
-      text-shadow 0 (shadowSize * 0.5) rgba(lighten(color, colorDifference), shadowOpacity)
   .area
     font-size size * 1.2
     position absolute
@@ -30,7 +37,11 @@ button(size, color)
     color color
     transition text-shadow 200ms
     text-shadow 0 shadowSize rgba(lighten(color, colorDifference), shadowOpacity)
+    &:hover
+      text-shadow 0 (shadowSize * 0.5) rgba(lighten(color, colorDifference), shadowOpacity)
+      color lighten(color, colorDifference)
   .text
+    pointer-events none
     z-index 100
     position absolute
     font-size size * 0.3
@@ -86,20 +97,31 @@ button(size, color)
         position absolute
         top 10px
         right 10px
-      
+        color rgba(lighten(textColor, 60%), 70%)
+        fraction(30px)
+
       nav.buttons
         position absolute
         bottom 10px
         width 100%
         .next
           float right
+
     .person
+      position absolute
+      width 100%
       margin-top 40%
+      text-align center
       
       .picture
+        display block
+        margin 0 auto
         width 30%
+        border-radius 50%
       .name
-        text-align center
+        margin-top 5%
+      .title
+        margin-top 5%
       
         
   // &.game

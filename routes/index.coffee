@@ -21,8 +21,11 @@ router.get '/api', (req, res) ->
         name: $team.find('h2').text()
         title: $team.find('h3').text()
         description: $team.find('p').text()
-      if personData.image
-        data.push personData
+
+      data.push personData
+
+    # Remove last personData
+    data.pop()
 
     res.json data
 

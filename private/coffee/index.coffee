@@ -1,4 +1,6 @@
 $ = require 'jquery'
+Game = require './game'
+
 debug = true
 
 $ ->
@@ -7,6 +9,7 @@ $ ->
   data = {}
   # mode = { 'easy', 'hard' }
   mode = ''
+  game = undefined
 
   # Sets up the website for the first time
   setup = ->
@@ -27,10 +30,29 @@ $ ->
       $hardButton.click ->
         startGame('hard')
 
+    # Listen for keyboard events
+    $('body').keydown (e) ->
+      console.log e.which
+      # Check backspace
+      if e.which == 8
+        backspace = true
+      else
+        char = String.fromCharCode(e.which).toLowerCase()
+      if game
+        if backspace
+          game.removeChar()
+          return false
+        else if game.isValidChar(char)
+          game.addChar(char)
+
+
   # Starts a new game
-  startGame = (type) ->
-    mode = type
+  startGame = (difficulty) ->
+    mode = difficulty
     setPage('game')
+    game = new Game(data, $page.game)
+    game.setDifficulty difficulty
+    game.nextQuestion()
 
   # Loads the data for the game
   loadData = (cb) ->
