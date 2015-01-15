@@ -31,7 +31,8 @@
     "request": "^2.51.0",
     "serve-favicon": "~2.2.0",
     "shuffle-array": "^0.1.0",
-    "simplesets": "^1.2.0"
+    "simplesets": "^1.2.0",
+    "ucfirst": "0.0.1"
   },
   "repository": {
     "type": "git",

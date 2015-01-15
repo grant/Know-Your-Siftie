@@ -32,7 +32,6 @@ $ ->
 
     # Listen for keyboard events
     $('body').keydown (e) ->
-      console.log e.which
       # Check backspace
       if e.which == 8
         backspace = true

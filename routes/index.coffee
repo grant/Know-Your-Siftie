@@ -24,7 +24,8 @@ router.get '/api', (req, res) ->
 
       data.push personData
 
-    # Remove last personData
+    data = data.filter (val) ->
+      return val.name != 'You?' and val.name != 'Tai-Jin Lee'
     data.pop()
 
     res.json data
