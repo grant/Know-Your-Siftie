@@ -2,6 +2,9 @@ $ = require 'jquery'
 
 $ ->
   $page = {}
+  # mode = { 'easy', 'hard' }
+  mode = ''
+
   setup = ->
     $page =
       intro: $ '.page.intro'
@@ -12,6 +15,16 @@ $ ->
     #   data = response
     #   console.log data
     setPage 'intro', false
+
+    $easyButton = $('.easy.button')
+    $hardButton = $('.hard.button')
+
+    $easyButton.click ->
+      mode = 'easy'
+      setPage('game')
+    $hardButton.click ->
+      mode = 'hard'
+      setPage('game')
 
   setPage = (newPageName, transition = true) ->
     for pageName of $page

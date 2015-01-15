@@ -2,9 +2,9 @@ extends layout
 
 mixin fraction
   .fraction
-    .current.part 0
+    span.current.part 0
     | /
-    .total.part 0
+    span.total.part 0
 
 mixin button(name)
   button.button(class=attributes.class)
@@ -30,11 +30,11 @@ block content
           //- .probability
           .progress
             +fraction
+          nav.buttons
+            +button.next
         .person
           img.picture
           h3.name
-        nav.buttons
-          +button.next
       li.page.results
         .score
           +fraction
