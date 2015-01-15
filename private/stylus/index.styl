@@ -21,7 +21,7 @@ button(size, color)
   &:hover
     margin-top (shadowSize * 0.5)
     .area
-      text-shadow 0 (shadowSize * 0.5) rgba(lighten(color, colorDifference), colorOpacity)
+      text-shadow 0 (shadowSize * 0.5) rgba(lighten(color, colorDifference), shadowOpacity)
   .area
     font-size size * 1.2
     position absolute
@@ -29,7 +29,7 @@ button(size, color)
     left -(size * 0.04)
     color color
     transition text-shadow 200ms
-    text-shadow 0 shadowSize rgba(lighten(color, colorDifference), colorOpacity)
+    text-shadow 0 shadowSize rgba(lighten(color, colorDifference), shadowOpacity)
   .text
     z-index: 100
     position absolute
