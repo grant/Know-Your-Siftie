@@ -22,6 +22,7 @@ $ ->
 
     $easyButton = $('.easy.button')
     $hardButton = $('.hard.button')
+    $skipButton = $('.skip.button')
 
     # Load the data then enable intro button clicks
     loadData ->
@@ -29,6 +30,8 @@ $ ->
         startGame('easy')
       $hardButton.click ->
         startGame('hard')
+      $skipButton.click ->
+        game.nextQuestion()
 
     # Listen for keyboard events
     $('body').keydown (e) ->

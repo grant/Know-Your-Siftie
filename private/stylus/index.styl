@@ -100,12 +100,18 @@ button(size, color)
         color rgba(lighten(textColor, 60%), 70%)
         fraction(30px)
 
-      nav.buttons
+      .button-container
+        size = 100px
         position absolute
-        bottom 10px
+        bottom size + 10px
         width 100%
-        .next
-          float right
+        nav.buttons
+          position absolute
+          width 100%
+          .button
+            button(size, blue)
+          .skip
+            float right
 
     .person
       position absolute
@@ -117,15 +123,17 @@ button(size, color)
       .picture
         display block
         margin 0 auto
-        width 30%
+        width 200px
         border-radius 50%
       .name
-        margin-top 5%
+        margin-top 40px
         transition color 100ms
         &.correct
           color green
+        &.incorrect
+          color red
       .title
-        margin-top 5%
+        margin-top 30px
       
         
   // &.game

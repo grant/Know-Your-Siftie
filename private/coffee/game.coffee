@@ -22,6 +22,7 @@ class Game
       @questionDataOrder[i].firstName = splitName[0]
       @questionDataOrder[i].lastName = splitName[1]
 
+    @$name = @$page.find('.person .name')
     @$page.find('.progress .total').text(@questionDataOrder.length)
 
   # Sets the game difficulty
@@ -31,17 +32,20 @@ class Game
   getQuestion: ->
     @questionDataOrder[@currentQuestionIndex]
 
-  # Loads the next person
+  # Loads the next person (if available)
   nextQuestion: ->
     ++@currentQuestionIndex
-    questionData = @getQuestion()
-    @guess = ''
-    
-    # Update DOM
-    @$page.find('.person .name').removeClass('correct')
-    @$page.find('.person .picture').attr('src', questionData.image)
-    @$page.find('.person .title').text(questionData.title)
-    @updateGuess()
+    if @gameIsOver()
+      @gameOverCb()
+    else
+      questionData = @getQuestion()
+      @guess = ''
+      
+      # Update DOM
+      @$name.removeClass('correct')
+      @$page.find('.person .picture').attr('src', questionData.image)
+      @$page.find('.person .title').text(questionData.title)
+      @updateGuess()
 
   # ## Guessing
 
@@ -67,14 +71,16 @@ class Game
       ++@score
       @$page.find('.progress .current').text(@score)
       # Make name flash green
-      @$page.find('.person .name').addClass('correct')
+      @$name.addClass('correct')
       # Delay next question
       setTimeout =>
-        if @gameIsOver()
-          @gameOverCb()
-        else
-          @nextQuestion()
+        @nextQuestion()
       , 500
+    else # incorrect
+      if @guess.length == @getQuestion().firstName.length
+        @$name.addClass('incorrect')
+      else
+        @$name.removeClass('incorrect')
 
   # Updates the guess state
   updateGuess: ->
@@ -84,7 +90,7 @@ class Game
     for i in [0...remainingChars]
       starChars += '*'
     displayName = ucfirst(@guess) + starChars
-    @$page.find('.person .name').text(displayName)
+    @$name.text(displayName)
 
   # Returns true if the current guess is correct
   guessIsCorrect: ->
