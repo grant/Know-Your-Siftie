@@ -9,18 +9,27 @@ html, body, .viewport, .pages, .page
   height 100%
 
 button(size, color)
+  colorDifference = 0.2
+  shadowOpacity = 0.2
+  shadowSize = 10px
   position relative
   width size
   height size
   text-align center
   cursor pointer
+  transition margin-top 200ms
+  &:hover
+    margin-top (shadowSize * 0.5)
+    .area
+      text-shadow 0 (shadowSize * 0.5) rgba(lighten(color, colorDifference), colorOpacity)
   .area
     font-size size * 1.2
     position absolute
     top -50%
     left -(size * 0.04)
     color color
-    text-shadow 0 10px rgba(lighten(color, 0.2), 0.2)
+    transition text-shadow 200ms
+    text-shadow 0 shadowSize rgba(lighten(color, colorDifference), colorOpacity)
   .text
     z-index: 100
     position absolute
