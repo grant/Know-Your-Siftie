@@ -5,7 +5,7 @@ sets = require 'simplesets'
 class Game
   constructor: (data, @$page) ->
     @questionDataOrder = shuffle(data)
-    @currentQuestionIndex = 0
+    @currentQuestionIndex = -1
     @score = 0
     @guess = ''
     @correctGuessIndices = []
@@ -43,7 +43,7 @@ class Game
       @guess = ''
       
       # Update DOM
-      @$name.removeClass('correct')
+      @$name.removeClass('correct incorrect')
       @$page.find('.person .picture').attr('src', questionData.image)
       @$page.find('.person .title').text(questionData.title)
       @updateGuess()
@@ -69,13 +69,12 @@ class Game
   checkGuess: ->
     @updateGuess()
     if @guessIsCorrect()
-      ++@score
       @correctGuessIndices.push @currentQuestionIndex
-      @$page.find('.progress .current').text(@score)
       # Make name flash green
       @$name.addClass('correct')
       # Delay next question
       setTimeout =>
+        @$page.find('.progress .current').text(++@score)
         @nextQuestion()
       , 500
     else # incorrect

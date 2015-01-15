@@ -34,6 +34,7 @@ $ ->
       $skipButton.click ->
         game.nextQuestion()
       $againButton.click ->
+        $('ul.people').empty()
         setPage 'intro'
 
     # Listen for keyboard events
@@ -64,11 +65,11 @@ $ ->
       $peopleList = []
 
       addList = (list, type) ->
-        for incorrectPeople in list
-          $picture = $('<img>').addClass('picture').attr('src', incorrectPeople.image)
-          $name = $('<h3>').addClass('name').text(incorrectPeople.firstName)
+        for people in list
+          $picture = $('<img>').addClass('picture').attr('src', people.image)
+          $name = $('<h3>').addClass('name').text(people.firstName)
           $person = $('<li>').addClass('person ' + type).append($picture, $name)
-          $('.people').append($person)
+          $('ul.people').append($person)
       
       addList results.incorrect, 'incorrect'
       addList results.correct, 'correct'

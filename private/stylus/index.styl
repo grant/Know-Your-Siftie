@@ -3,6 +3,7 @@
 html
   font-family ProximaNova, "Helvetica Neue", Helvetica, Arial, sans-serif
   font-weight 100
+  color #666
 
 html, body, .viewport, .pages, .page
   width 100%
@@ -142,7 +143,9 @@ button(size, color)
       width 100%
       top 30%
       fraction(200px)
-      color textColor
+      color #ccc
+      .part
+        color #999
     .people-area
       position absolute
       width 100%
@@ -153,6 +156,7 @@ button(size, color)
         .person
           display inline-block
           width 200px
+          height 270px
           padding 20px
           margin 20px
           border-radius 3px
