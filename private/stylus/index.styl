@@ -13,7 +13,7 @@ blueColor = rgb(39, 169, 225)
 orangeColor = rgb(242, 106, 47)
 redColor = rgb(218, 85, 78)
 greenColor = rgb(162, 211, 105)
-textColor = #333
+textColor = #666
 
 // A fraction
 fraction(size)
@@ -113,11 +113,10 @@ button(size, color)
         width 100%
         nav.buttons
           position absolute
+          text-align center
           width 100%
           .button
             button(size, orangeColor)
-          .skip
-            float right
 
     .person
       position absolute
@@ -140,6 +139,14 @@ button(size, color)
           color red
       .title
         margin-top 30px
+      .description
+        margin 20px auto
+        width 500px
+        font-weight 400
+        font-size 20px
+        line-height 1.5
+        letter-spacing 0
+        color textColor
 
   &.results
     .score

@@ -1,3 +1,4 @@
+$ = require 'jquery'
 shuffle = require 'shuffle-array'
 ucfirst = require 'ucfirst'
 sets = require 'simplesets'
@@ -14,6 +15,8 @@ class Game
 
     # Generate valid character
     @validCharacters = new sets.Set()
+    for char in 'abcdefghijklmnopqrstuvwxyz'
+      @validCharacters.add(char)
     for questionData in @questionDataOrder
       for char in questionData.name
         @validCharacters.add(char.toLowerCase())
@@ -26,10 +29,22 @@ class Game
       @questionDataOrder[i].lastName = splitName[1]
 
     @$name = @$page.find('.person .name')
+
+    # Reset DOM
     @$page.find('.progress .total').text(@questionDataOrder.length)
 
   # Sets the game difficulty
-  setDifficulty: (@difficulty) -> @
+  setDifficulty: (@difficulty) ->
+    if @difficulty == 'easy'
+      @$page.find('.person .picture').show()
+      @$page.find('.person .title').show()
+      @$page.find('.person .name').show()
+      @$page.find('.person .description').hide()
+    else if @difficulty == 'hard'
+      @$page.find('.person .picture').hide()
+      @$page.find('.person .title').hide()
+      @$page.find('.person .name').show()
+      @$page.find('.person .description').show()
 
   # Gets the current question data
   getQuestion: ->
@@ -45,9 +60,13 @@ class Game
       @guess = ''
       
       # Update DOM
+      if @difficulty == 'easy'
+        @$page.find('.person .picture').attr('src', questionData.image)
+        @$page.find('.person .title').text(questionData.title)
+      else if @difficulty == 'hard'
+        @$page.find('.person .description').text(questionData.description)
+        
       @$name.removeClass('correct incorrect')
-      @$page.find('.person .picture').attr('src', questionData.image)
-      @$page.find('.person .title').text(questionData.title)
       @updateGuess()
 
   # ## Guessing
@@ -74,7 +93,7 @@ class Game
       if @guessIsCorrect()
         @correctGuessIndices.push @currentQuestionIndex
         # Make name flash green
-        @$name.addClass('correct')
+        @$page.find('.person .name').addClass('correct')
         @transitioning = true
         # Delay next question
         setTimeout =>
@@ -85,9 +104,9 @@ class Game
       else # incorrect
         firstName = @getQuestion().firstName
         if @guess.length == firstName.length
-          @$name.addClass('incorrect')
+          @$page.find('.person .name').addClass('incorrect')
           @transitioning = true
-          @$name.text(firstName)
+          @$page.find('.person .name').text(firstName)
           setTimeout =>
             @transitioning = false
             @nextQuestion()
@@ -95,13 +114,20 @@ class Game
 
   # Updates the guess state
   updateGuess: ->
-    firstName = @getQuestion().firstName
+    question = @getQuestion()
+    firstName = question.firstName
     remainingChars = firstName.length - @guess.length
     starChars = ''
     for i in [0...remainingChars]
       starChars += '*'
     displayName = ucfirst(@guess) + starChars
     @$name.text(displayName)
+
+    # Update description if hard mode
+    if @difficulty == 'hard'
+      $span = $('<div>').append($('<span>').addClass('name').text(displayName)).html()
+      description = question.description.replace(new RegExp(question.firstName, 'g'), $span)
+      @$page.find('.person .description').html(description)
 
   # Returns true if the current guess is correct
   guessIsCorrect: ->
