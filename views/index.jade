@@ -6,6 +6,11 @@ mixin fraction
     | /
     .total.part 0
 
+mixin button(name)
+  button.button(class=attributes.class)
+    span.text= name
+    .area ⬢
+
 block content
   .viewport
     .background
@@ -18,8 +23,8 @@ block content
           br
           | Siftie
         nav.buttons
-          .easy.button
-          .hard.button
+          +button('Easy').easy
+          +button('Hard').hard
       li.page.game
         .hud
           //- .probability
@@ -29,7 +34,7 @@ block content
           img.picture
           h3.name
         nav.buttons
-          .next.button
+          +button.next
       li.page.results
         .score
           +fraction
