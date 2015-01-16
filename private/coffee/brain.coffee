@@ -37,7 +37,7 @@ module.exports =
 
     if ioData.length != 0
       # Run the classifier
-      net = new brain.NeuralNetwork();
+      net = new brain.NeuralNetwork()
       net.train ioData
       result = net.run personData
       result = Math.round(100 * result)

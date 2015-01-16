@@ -42,6 +42,8 @@ $ ->
         $('ul.people').empty()
         setPage 'intro'
 
+    $('.input').focus()
+
     # Listen for keyboard events
     $('body').keydown (e) ->
       # Check backspace

@@ -50,7 +50,7 @@ class Game
 
   enableML: (@mlEnabled) ->
     if !@mlEnabled
-      $('.probability').hide()    
+      $('.probability').hide()
 
   # Gets the current question data
   getQuestion: ->
@@ -80,7 +80,7 @@ class Game
         probability = brain.getProbability(@answerLogs, questionData)
         $probability = $('.probability').removeClass('good ok bad')
         $probability.text(probability + '%')
-        if probability == 
+        if probability > 80
           $probability.addClass('good')
         else if probability > 40
           $probability.addClass('ok')
@@ -154,8 +154,12 @@ class Game
 
     # Update description if hard mode
     if @difficulty == 'hard'
-      $span = $('<div>').append($('<span>').addClass('name').text(displayName)).html()
-      description = question.description.replace(new RegExp(question.firstName, 'g'), $span)
+      $span = $('<div>')
+        .append($('<span>')
+        .addClass('name')
+        .text(displayName)).html()
+      description = question.description.replace(
+        new RegExp(question.firstName, 'g'), $span)
       @$page.find('.person .description').html(description)
 
   # Returns true if the current guess is correct

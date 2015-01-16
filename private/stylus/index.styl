@@ -16,6 +16,11 @@ redColor = rgb(218, 85, 78)
 greenColor = rgb(162, 211, 105)
 textColor = #666
 
+phone = "not all and (min-width: 600px)"
+
+.input
+  display none
+
 // A fraction
 fraction(size)
   font-size size
@@ -85,6 +90,9 @@ button(size, color)
       height 100px
       width 40%
       margin-left 30%
+      @media phone
+        width 80%
+        margin-left 10%
       .button
         size = 100px
         &.easy
@@ -157,12 +165,15 @@ button(size, color)
         margin-top 30px
       .description
         margin 20px auto
-        width 500px
         font-weight 400
         font-size 20px
         line-height 1.5
         letter-spacing 0
         color textColor
+        width 500px
+        @media phone
+          font-size 16px
+          width 300px
 
   &.results
     .score
@@ -170,8 +181,10 @@ button(size, color)
       text-align center
       width 100%
       top 30%
-      fraction(200px)
       color #ccc
+      fraction(200px)
+      @media phone
+        fraction(100px)
       .part
         color #999
     .people-area
