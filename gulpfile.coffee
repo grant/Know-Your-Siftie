@@ -12,7 +12,7 @@ uglify = require 'gulp-uglify'
 
 src =
   coffee: ['**/*.coffee', '!./node_modules/**']
-  coffee_index: ['private/coffee/index.coffee']
+  coffee_index: 'private/coffee/index.coffee'
   stylus: 'private/stylus/**/*.styl'
   stylus_index: 'private/stylus/index.styl'
 
