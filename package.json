@@ -33,7 +33,8 @@
     "serve-favicon": "~2.2.0",
     "shuffle-array": "^0.1.0",
     "simplesets": "^1.2.0",
-    "ucfirst": "0.0.1"
+    "ucfirst": "0.0.1",
+    "jquery": "^2.1.3"
   },
   "repository": {
     "type": "git",
@@ -55,8 +56,5 @@
   "bugs": {
     "url": "https://github.com/grant/know-your-siftie/issues"
   },
-  "homepage": "https://github.com/grant/know-your-siftie",
-  "devDependencies": {
-    "jquery": "^2.1.3"
-  }
+  "homepage": "https://github.com/grant/know-your-siftie"
 }
