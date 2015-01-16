@@ -1,8 +1,9 @@
 $ = require 'jquery'
 Game = require './game'
 
-debug = true
+debug = false
 fadeDuration = 200
+answerLogs = []
 
 $ ->
   # Global variables
@@ -33,6 +34,9 @@ $ ->
       $hardButton.click ->
         startGame('hard')
       $skipButton.click ->
+        answerLogs.push
+          response: 'skip'
+          personData: game.getQuestion()
         game.nextQuestion()
       $againButton.click ->
         $('ul.people').empty()
@@ -59,6 +63,8 @@ $ ->
     setPage('game')
     game = new Game(data, $page.game)
     game.setDifficulty difficulty
+    game.enableML false
+    game.setAnswerLogsRef answerLogs
     game.nextQuestion()
     game.setGameOverCb ->
       setPage 'results'

@@ -3,6 +3,8 @@ shuffle = require 'shuffle-array'
 ucfirst = require 'ucfirst'
 sets = require 'simplesets'
 
+brain = require './brain'
+
 delayBetweenQuestions = 500
 
 class Game
@@ -46,6 +48,10 @@ class Game
       @$page.find('.person .name').show()
       @$page.find('.person .description').show()
 
+  enableML: (@mlEnabled) ->
+    if !@mlEnabled
+      $('.probability').hide()    
+
   # Gets the current question data
   getQuestion: ->
     @questionDataOrder[@currentQuestionIndex]
@@ -69,6 +75,21 @@ class Game
       @$name.removeClass('correct incorrect')
       @updateGuess()
 
+      # Update probability
+      if @mlEnabled
+        probability = brain.getProbability(@answerLogs, questionData)
+        $probability = $('.probability').removeClass('good ok bad')
+        $probability.text(probability + '%')
+        if probability == 
+          $probability.addClass('good')
+        else if probability > 40
+          $probability.addClass('ok')
+        else
+          $probability.addClass('bad')
+
+  # Sets the reference to the answer logs
+  setAnswerLogsRef: (@answerLogs) ->
+
   # ## Guessing
 
   # Returns true if the character is a valid guess
@@ -91,6 +112,10 @@ class Game
     if !@transitioning
       @updateGuess()
       if @guessIsCorrect()
+        @answerLogs.push
+          response: 'correct'
+          personData: @getQuestion()
+
         @correctGuessIndices.push @currentQuestionIndex
         # Make name flash green
         @$page.find('.person .name').addClass('correct')
@@ -104,6 +129,10 @@ class Game
       else # incorrect
         firstName = @getQuestion().firstName
         if @guess.length == firstName.length
+          @answerLogs.push
+            response: 'incorrect'
+            personData: @getQuestion()
+
           @$page.find('.person .name').addClass('incorrect')
           @transitioning = true
           @$page.find('.person .name').text(firstName)

@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "body-parser": "~1.10.1",
+    "brain": "^0.7.0",
     "cheerio": "^0.18.0",
     "coffee-script": "^1.8.0",
     "coffeeify": "^1.0.0",

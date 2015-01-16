@@ -10,6 +10,7 @@ html, body, .viewport, .pages, .page
   height 100%
 
 blueColor = rgb(39, 169, 225)
+yellowColor = rgb(254, 199, 45)
 orangeColor = rgb(242, 106, 47)
 redColor = rgb(218, 85, 78)
 greenColor = rgb(162, 211, 105)
@@ -99,11 +100,26 @@ button(size, color)
       width 100%
       height 100%
       
+      statColor = rgba(lighten(textColor, 60%), 90%)
+      .probability
+        position absolute
+        top 10px
+        left 10px
+        font-size 26px
+        color statColor
+        letter-spacing 1px
+        &.good
+          color greenColor
+        &.ok
+          color yellowColor
+        &.bad
+          color redColor
+
       .progress
         position absolute
         top 10px
         right 10px
-        color rgba(lighten(textColor, 60%), 70%)
+        color statColor
         fraction(30px)
 
       .button-container
