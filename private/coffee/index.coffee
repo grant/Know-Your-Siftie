@@ -89,13 +89,9 @@ $ ->
 
   # Loads the data for the game
   loadData = (cb) ->
-    if debug
-      data = require '../../public/data/data'
+    $.getJSON '/api', (response) ->
+      data = response
       cb()
-    else
-      $.getJSON '/api', (response) ->
-        data = response
-        cb()
 
   # Sets the state of the pages
   setPage = (newPageName, transition = true) ->
