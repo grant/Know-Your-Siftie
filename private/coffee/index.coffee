@@ -37,7 +37,7 @@ $ ->
         answerLogs.push
           response: 'skip'
           personData: game.getQuestion()
-        game.nextQuestion()
+        game.showIncorrect()
       $againButton.click ->
         $('ul.people').empty()
         setPage 'intro'

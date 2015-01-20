@@ -12,6 +12,7 @@ class Game
     @questionDataOrder = shuffle(data)
     @currentQuestionIndex = -1
     @score = 0
+    @progress = 1
     @guess = ''
     @correctGuessIndices = []
 
@@ -33,6 +34,7 @@ class Game
     @$name = @$page.find('.person .name')
 
     # Reset DOM
+    @$page.find('.progress .current').text(@progress)
     @$page.find('.progress .total').text(@questionDataOrder.length)
 
   # Sets the game difficulty
@@ -112,6 +114,7 @@ class Game
     if !@transitioning
       @updateGuess()
       if @guessIsCorrect()
+        @$page.find('.progress .current').text(++@progress)
         @answerLogs.push
           response: 'correct'
           personData: @getQuestion()
@@ -119,27 +122,33 @@ class Game
         @correctGuessIndices.push @currentQuestionIndex
         # Make name flash green
         @$page.find('.person .name').addClass('correct')
+        ++@score
         @transitioning = true
         # Delay next question
         setTimeout =>
           @transitioning = false
-          @$page.find('.progress .current').text(++@score)
           @nextQuestion()
         , delayBetweenQuestions
       else # incorrect
         firstName = @getQuestion().firstName
         if @guess.length == firstName.length
-          @answerLogs.push
-            response: 'incorrect'
-            personData: @getQuestion()
+          @showIncorrect()
 
-          @$page.find('.person .name').addClass('incorrect')
-          @transitioning = true
-          @$page.find('.person .name').text(firstName)
-          setTimeout =>
-            @transitioning = false
-            @nextQuestion()
-          , delayBetweenQuestions * 2
+  # Let the question be incorrect and move to the next question
+  showIncorrect: ->
+    @$page.find('.progress .current').text(++@progress)
+    firstName = @getQuestion().firstName
+    @answerLogs.push
+      response: 'incorrect'
+      personData: @getQuestion()
+
+    @$page.find('.person .name').addClass('incorrect')
+    @transitioning = true
+    @$page.find('.person .name').text(firstName)
+    setTimeout =>
+      @transitioning = false
+      @nextQuestion()
+    , delayBetweenQuestions * 2
 
   # Updates the guess state
   updateGuess: ->
