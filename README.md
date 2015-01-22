@@ -2,6 +2,8 @@
 
 A simple way of getting to know your Sifties.
 
+Creates a game using scraped data from https://siftscience.com/about
+
 ### How to start server
 
 ```sh
