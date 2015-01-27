@@ -136,7 +136,7 @@ class Game
 
   # Let the question be incorrect and move to the next question
   showIncorrect: ->
-    if !@@transitioning
+    if !@transitioning
       @$page.find('.progress .current').text(++@progress)
       firstName = @getQuestion().firstName
       @answerLogs.push
