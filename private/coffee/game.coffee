@@ -66,14 +66,14 @@ class Game
     else
       questionData = @getQuestion()
       @guess = ''
-      
+
       # Update DOM
       if @difficulty == 'easy'
         @$page.find('.person .picture').attr('src', questionData.image)
         @$page.find('.person .title').text(questionData.title)
       else if @difficulty == 'hard'
         @$page.find('.person .description').text(questionData.description)
-        
+
       @$name.removeClass('correct incorrect')
       @updateGuess()
 
@@ -136,19 +136,20 @@ class Game
 
   # Let the question be incorrect and move to the next question
   showIncorrect: ->
-    @$page.find('.progress .current').text(++@progress)
-    firstName = @getQuestion().firstName
-    @answerLogs.push
-      response: 'incorrect'
-      personData: @getQuestion()
+    if !@@transitioning
+      @$page.find('.progress .current').text(++@progress)
+      firstName = @getQuestion().firstName
+      @answerLogs.push
+        response: 'incorrect'
+        personData: @getQuestion()
 
-    @$page.find('.person .name').addClass('incorrect')
-    @transitioning = true
-    @$page.find('.person .name').text(firstName)
-    setTimeout =>
-      @transitioning = false
-      @nextQuestion()
-    , delayBetweenQuestions * 2
+      @$page.find('.person .name').addClass('incorrect')
+      @transitioning = true
+      @$page.find('.person .name').text(firstName)
+      setTimeout =>
+        @transitioning = false
+        @nextQuestion()
+      , delayBetweenQuestions * 2
 
   # Updates the guess state
   updateGuess: ->
