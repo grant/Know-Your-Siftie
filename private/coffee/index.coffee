@@ -47,16 +47,13 @@ $ ->
     # Listen for keyboard events
     $('body').keydown (e) ->
       # Check backspace
-      if e.which == 8
-        backspace = true
-      else
-        char = String.fromCharCode(e.which).toLowerCase()
-      if game
-        if backspace
-          game.removeChar()
-          return false
-        else if game.isValidChar(char)
-          game.addChar(char)
+      if game and e.which == 8
+        game.removeChar()
+        return false
+    $('body').keypress (e) ->
+      char = String.fromCharCode(e.which).toLowerCase()
+      if game and game.isValidChar(char)
+        game.addChar(char)
 
 
   # Starts a new game
@@ -79,7 +76,7 @@ $ ->
           $name = $('<h3>').addClass('name').text(people.firstName)
           $person = $('<li>').addClass('person ' + type).append($picture, $name)
           $('ul.people').append($person)
-      
+
       addList results.incorrect, 'incorrect'
       addList results.correct, 'correct'
 
